@@ -1,15 +1,15 @@
 #define MAX_POT 2 // 조도 센서 개수
-#define MAX_LED 3 // LED 개수
-#define L_LIMIT 300 // 조도 어디까지 인식으로 볼 건지
-#define T_LIMIT 10 // 조도 어디까지 시간차이를 씹을 건지
+#define MAX_LED 5 // LED 개수
+#define L_LIMIT 20 // 조도 어디까지 인식으로 볼 건지
+#define T_LIMIT 100 // 조도 어디까지 시간차이를 씹을 건지
 #define N 3 // 속도를 정수화? 하는 느낌
 #define M 1 //LED 어디만큼 킬까
-#define RESET 10 //초기화 임시 변수
+#define RESET 50 //초기화 임시 변수
 
 
 const int POT_PIN[MAX_POT] = {A0,A1};
 int POT_TIME[MAX_POT]={0};
-const int LED_PIN[MAX_LED] = {4,3,2};
+const int LED_PIN[MAX_LED] = {4,3,2,7,6};
 int LED_TIME[MAX_LED] = {0};
 int dx[2]={-1,1};
 int visited[MAX_LED];
@@ -98,7 +98,7 @@ void loop() {
   if(time%RESET==0){
     for(int i=0;i<MAX_LED;i++) digitalWrite(LED_PIN[i], LOW); 
   }
-  delay(500);
+  delay(100);
   time++;
 }
 
