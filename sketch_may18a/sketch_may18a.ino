@@ -1,10 +1,10 @@
 #define MAX_POT 2 // 조도 센서 개수
 #define MAX_LED 5 // LED 개수
 #define L_LIMIT 20 // 조도 어디까지 인식으로 볼 건지
-#define T_LIMIT 100 // 조도 어디까지 시간차이를 씹을 건지
-#define N 3 // 속도를 정수화? 하는 느낌
+#define T_LIMIT 10 // 조도 어디까지 시간차이를 씹을 건지
+#define N 10 // 속도를 정수화? 하는 느낌
 #define M 1 //LED 어디만큼 킬까
-#define RESET 50 //초기화 임시 변수
+#define RESET 30 //초기화 임시 변수
 
 
 const int POT_PIN[MAX_POT] = {A0,A1};
@@ -43,9 +43,10 @@ bool isEmpty() {
 }
 
 void bfs(int t,int x){
+  x=0;
   for(int i=0;i<MAX_LED;i++)visited[i]=0;
   front=rear=0;
-  t=(t+1)/N;
+  t=N/(t+1);
   enqueue({x,t});
   visited[x]=1;
   while(!isEmpty()){
@@ -77,8 +78,12 @@ void loop() {
   
   for(int i=0;i<MAX_POT;i++){
     int val = analogRead(POT_PIN[i]);  // POT_PIN에서 아날로그 값 읽기
-    Serial.println(val);            // 시리얼 모니터에 값 출력
+    //Serial.println(val);            // 시리얼 모니터에 값 출력
     if(val<L_LIMIT){
+      if(time - POT_TIME[i]<T_LIMIT)continue;
+      Serial.println("CAR!");
+      Serial.println((int)time);
+      Serial.println();
       POT_TIME[i]=time;
       for(int j=0;j<2;j++){
         if(i+dx[j]<0 || i+dx[j]>=MAX_POT)continue;
@@ -98,7 +103,7 @@ void loop() {
   if(time%RESET==0){
     for(int i=0;i<MAX_LED;i++) digitalWrite(LED_PIN[i], LOW); 
   }
-  delay(100);
+  delay(500);
   time++;
 }
 
