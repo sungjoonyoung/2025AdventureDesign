@@ -59,6 +59,7 @@ void loop() {
 
   lcd.setCursor(0, 1);     // 둘째 줄 첫 번째 칸
   lcd.print("CAR!             ");
+  delay(5000);
   } 
   else if(distance[0] < dist_ind || distance[1] < dist_ind) {
   lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
@@ -66,6 +67,7 @@ void loop() {
 
   lcd.setCursor(0, 1);     // 둘째 줄 첫 번째 칸
   lcd.print("HUMAN!             ");
+  delay(5000);
   } 
   else {
   lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
