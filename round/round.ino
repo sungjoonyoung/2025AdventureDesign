@@ -35,6 +35,8 @@ void loop() {
   float distance[10];
 
   for (int i = 0; i < MAX; i++) {
+    if(i)continue;
+
     digitalWrite(trigPin[i], LOW);
     delayMicroseconds(2);
     digitalWrite(trigPin[i], HIGH);
@@ -59,7 +61,7 @@ void loop() {
 
   lcd.setCursor(0, 1);     // 둘째 줄 첫 번째 칸
   lcd.print("CAR!             ");
-  delay(5000);
+  delay(4000);
   } 
   else if(distance[0] < dist_ind || distance[1] < dist_ind) {
   lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
@@ -67,7 +69,7 @@ void loop() {
 
   lcd.setCursor(0, 1);     // 둘째 줄 첫 번째 칸
   lcd.print("HUMAN!             ");
-  delay(5000);
+  delay(10);
   } 
   else {
   lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
@@ -77,7 +79,7 @@ void loop() {
   lcd.print("EMPTY!             ");
   }
 
-  delay(50);
+  delay(1000);
 }
 
 
