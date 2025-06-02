@@ -6,7 +6,7 @@ int echoPin[] = {3,6};
 int led=13;
 int MAX=2;
 int dist_ind=1000;
-
+int dist_lim=200;
 LiquidCrystal_I2C lcd(0x27, 16, 2);  
 
 void setup() {
@@ -56,12 +56,22 @@ void loop() {
   }
 
   if (distance[0] < dist_ind && distance[1] < dist_ind) {
-  lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
-  lcd.print("CAR!             ");
+    if(distance[0]<dist_lim && distance[1]<dist_lim){
+      lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
+      lcd.print("HUMAN!             ");
 
-  lcd.setCursor(0, 1);     // 둘째 줄 첫 번째 칸
-  lcd.print("CAR!             ");
-  delay(4000);
+      lcd.setCursor(0, 1);     // 둘째 줄 첫 번째 칸
+      lcd.print("HUMAN!             ");
+      delay(10);
+    }
+    else{
+      lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
+      lcd.print("CAR!             ");
+
+      lcd.setCursor(0, 1);     // 둘째 줄 첫 번째 칸
+      lcd.print("CAR!             ");
+      delay(4000);
+    }
   } 
   else if(distance[0] < dist_ind || distance[1] < dist_ind) {
   lcd.setCursor(0, 0);     // 첫 줄 첫 번째 칸
