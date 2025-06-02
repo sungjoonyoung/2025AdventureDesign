@@ -6,7 +6,7 @@ int echoPin[] = {3,6};
 int led=13;
 int MAX=2;
 int dist_ind=1000;
-int dist_lim=200;
+int dist_lim=60;
 LiquidCrystal_I2C lcd(0x27, 16, 2);  
 
 void setup() {
@@ -35,7 +35,6 @@ void loop() {
   float distance[10];
 
   for (int i = 0; i < MAX; i++) {
-    if(i)continue;
 
     digitalWrite(trigPin[i], LOW);
     delayMicroseconds(2);
@@ -89,7 +88,7 @@ void loop() {
   lcd.print("EMPTY!             ");
   }
 
-  delay(1000);
+  delay(500);
 }
 
 
@@ -146,4 +145,3 @@ void loop() {
 
 // //   delay(100);
 // // }
-
