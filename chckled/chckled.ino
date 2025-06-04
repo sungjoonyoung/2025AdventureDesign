@@ -1,25 +1,47 @@
-#define MAX_LED 24 // LED 개수
+#define MAX_PIN 55  // 0~54번 핀 사용
 
-const int LED_PIN[MAX_LED] = {2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48};
-const int YEL_PIN[MAX_LED] = {3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49};
+String inputString = "";  // 입력 버퍼
+bool stringComplete = false;
 
 void setup() {
-  Serial.begin(9600);           // 시리얼 통신 시작
-  for(int i=0;i<MAX_LED;i++)
-    pinMode(LED_PIN[i], OUTPUT);
-}
-void loop() {
+  Serial.begin(9600);
 
-  
-  
-  for (int i = 0; i < MAX_LED; i++) {
-    digitalWrite(LED_PIN[i], HTGH);
-    digitalWrite(YEL_PIN[i], HTGH);
-
-    delay(500);
-
-    digitalWrite(LED_PIN[i], LOW);
-    digitalWrite(YEL_PIN[i], LOW);
+  // 0~54번 핀을 모두 출력으로 설정
+  for (int i = 0; i < MAX_PIN; i++) {
+    pinMode(i, OUTPUT);
   }
-  delay(500);
+
+  inputString.reserve(10);  // 버퍼 확보 (선택)
+}
+
+void loop() {
+  // if (stringComplete) {
+  //   int pin = inputString.toInt();  // 문자열 → 정수
+
+  //   if (pin >= 0 && pin < MAX_PIN) {
+  //     digitalWrite(pin, HIGH);
+  //     delay(500);
+  //     digitalWrite(pin, LOW);
+  //   } else {
+  //     Serial.println("잘못된 핀 번호입니다. (0~54)");
+  //   }
+
+  //   inputString = "";
+  //   stringComplete = false;
+  // }
+  for(int i=2;i<=55;i++){
+    digitalWrite(i, HIGH);
+  }
+}
+
+void serialEvent() {
+  while (Serial.available()) {
+    char inChar = (char)Serial.read();
+
+    if (inChar == '\n') {
+      stringComplete = true;
+    } else if (isDigit(inChar)) {
+      inputString += inChar;
+    }
+  }
 }
